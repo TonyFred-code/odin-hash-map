@@ -45,10 +45,10 @@ class HashMap {
     const hashedIndex = this.#hash(key);
 
     if (this.#store[hashedIndex] !== null) {
-        const {value} = this.#store[hashedIndex];
-        return value;
+      const { value } = this.#store[hashedIndex];
+      return value;
     } else {
-        return null;
+      return null;
     }
   }
 
@@ -58,13 +58,24 @@ class HashMap {
     return this.#store[hashedIndex] !== null;
   }
 
+  remove(key) {
+    const hashedIndex = this.#hash(key);
+
+    if (this.#store[hashedIndex] !== null) {
+      this.#store[hashedIndex] = null;
+      return true;
+    }
+
+    return false;
+  }
+
   get length() {
     let keysCount = 0;
 
     for (let element of this.#store) {
-        if (element !== null) {
-            keysCount += 1;
-        }
+      if (element !== null) {
+        keysCount += 1;
+      }
     }
 
     return keysCount;
@@ -78,11 +89,11 @@ class HashMap {
     const output = [];
 
     for (let element of this.#store) {
-        if (element !== null) {
-            const {key} = element;
+      if (element !== null) {
+        const { key } = element;
 
-            output.push(key);
-        }
+        output.push(key);
+      }
     }
 
     return output;
@@ -92,11 +103,11 @@ class HashMap {
     const output = [];
 
     for (let element of this.#store) {
-        if (element !== null) {
-            const {value} = element;
+      if (element !== null) {
+        const { value } = element;
 
-            output.push(value);
-        }
+        output.push(value);
+      }
     }
 
     return output;
@@ -124,11 +135,13 @@ console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
 console.log(hashMap.length);
+console.log(hashMap.remove('secondKey'));
 console.log(hashMap.get('firstKey'));
-console.log(hashMap.has('firstKey'))
-hashMap.clear()
-console.log(hashMap.has('firstKey'))
+console.log(hashMap.has('firstKey'));
+hashMap.clear();
+console.log(hashMap.has('firstKey'));
 console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
 console.log(hashMap.length);
+console.log(hashMap.remove('secondKey'));
