@@ -38,4 +38,16 @@ class HashMap {
         }
     }
   }
+
+  entries() {
+    let output = '';
+
+    for (let element of this.#store) {
+        const {key, value} = element;
+
+        output += `[${key}, ${value}]`;
+    }
+
+    return `[${output}]`;
+  }
 }
