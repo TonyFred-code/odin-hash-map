@@ -23,4 +23,19 @@ class HashMap {
 
     return hashCode % this.#mod;
   }
+
+  set(key, value) {
+    const hashedIndex = this.#hash(key);
+
+    if (this.#store[hashedIndex] === null) {
+        this.#store[hashedIndex] = {
+            key,
+            value,
+        }
+    } else {
+        if (this.#store[hashedIndex].key === key) {
+            this.#store[hashedIndex].value = value;
+        }
+    }
+  }
 }
