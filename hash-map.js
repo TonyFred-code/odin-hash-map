@@ -41,6 +41,17 @@ class HashMap {
     }
   }
 
+  get(key) {
+    const hashedIndex = this.#hash(key);
+
+    if (this.#store[hashedIndex] !== null) {
+        const {value} = this.#store[hashedIndex];
+        return value;
+    } else {
+        return null;
+    }
+  }
+
   get length() {
     let keysCount = 0;
 
@@ -107,6 +118,7 @@ console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
 console.log(hashMap.length);
+console.log(hashMap.get('firstKey'))
 hashMap.clear()
 console.log(hashMap.entries());
 console.log(hashMap.values());
