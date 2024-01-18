@@ -28,26 +28,33 @@ class HashMap {
     const hashedIndex = this.#hash(key);
 
     if (this.#store[hashedIndex] === null) {
-        this.#store[hashedIndex] = {
-            key,
-            value,
-        }
+      this.#store[hashedIndex] = {
+        key,
+        value,
+      };
     } else {
-        if (this.#store[hashedIndex].key === key) {
-            this.#store[hashedIndex].value = value;
-        }
+      if (this.#store[hashedIndex].key === key) {
+        this.#store[hashedIndex].value = value;
+      }
     }
   }
 
   entries() {
-    let output = '';
+    let output = [];
 
     for (let element of this.#store) {
-        const {key, value} = element;
+      if (element !== null) {
+        const { key, value } = element;
 
-        output += `[${key}, ${value}]`;
+        output.push([key, value]);
+      }
     }
 
-    return `[${output}]`;
+    return output;
   }
 }
+
+const hashMap = new HashMap();
+hashMap.set('firstKey', 'firstValue');
+hashMap.set('secondKey', 'secondValue');
+console.log(hashMap.entries());
