@@ -41,6 +41,18 @@ class HashMap {
     }
   }
 
+  get length() {
+    let keysCount = 0;
+
+    for (let element of this.#store) {
+        if (element !== null) {
+            keysCount += 1;
+        }
+    }
+
+    return keysCount;
+  }
+
   clear() {
     this.#fillStore();
   }
@@ -94,7 +106,9 @@ hashMap.set('secondKey', 'secondValue');
 console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
+console.log(hashMap.length);
 hashMap.clear()
 console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
+console.log(hashMap.length);
