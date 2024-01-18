@@ -39,6 +39,20 @@ class HashMap {
     }
   }
 
+  values() {
+    const output = [];
+
+    for (let element of this.#store) {
+        if (element !== null) {
+            const {value} = element;
+
+            output.push(value);
+        }
+    }
+
+    return output;
+  }
+
   entries() {
     let output = [];
 
@@ -58,3 +72,4 @@ const hashMap = new HashMap();
 hashMap.set('firstKey', 'firstValue');
 hashMap.set('secondKey', 'secondValue');
 console.log(hashMap.entries());
+console.log(hashMap.values());
