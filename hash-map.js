@@ -1,5 +1,5 @@
 class HashMap {
-  #mod;
+  #mod = 16;
   #store = [];
 
   constructor(size = 16) {
@@ -8,6 +8,8 @@ class HashMap {
   }
 
   #fillStore() {
+    this.#store = [];
+
     for (let i = 0; i < this.#mod; i += 1) {
       this.#store.push(null);
     }
@@ -37,6 +39,10 @@ class HashMap {
         this.#store[hashedIndex].value = value;
       }
     }
+  }
+
+  clear() {
+    this.#fillStore();
   }
 
   keys() {
@@ -85,6 +91,10 @@ class HashMap {
 const hashMap = new HashMap();
 hashMap.set('firstKey', 'firstValue');
 hashMap.set('secondKey', 'secondValue');
+console.log(hashMap.entries());
+console.log(hashMap.values());
+console.log(hashMap.keys());
+hashMap.clear()
 console.log(hashMap.entries());
 console.log(hashMap.values());
 console.log(hashMap.keys());
