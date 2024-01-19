@@ -9,6 +9,19 @@ class HashMap {
     this.#store = Array(this.#bucketSize).fill(null);
   }
 
+  #isPrime(num) {
+    if (num <= 1) return false;
+    if (num <= 3) return true;
+
+    if (n % 2 === 0 || num % 3 === 0) return false;
+
+    for (let i = 5; i * i <= num; i = i + 6) {
+      if (n % i === 0 || n % (i + 2) === 0) return false;
+    }
+
+    return true;
+  }
+
   #hash(key) {
     let hashCode = 0;
 
@@ -36,7 +49,7 @@ class HashMap {
   set(key, value) {
     const hashedIndex = this.#hash(key);
 
-    if ((this.#entriesCount / this.#bucketSize) >= this.#loadFactor) {
+    if (this.#entriesCount / this.#bucketSize >= this.#loadFactor) {
       this.#growBucket();
     }
 
@@ -48,7 +61,7 @@ class HashMap {
       this.#entriesCount += 1;
     } else {
       console.log(this.#store[hashedIndex]);
-      console.log(key, value)
+      console.log(key, value);
       if (this.#store[hashedIndex].key === key) {
         this.#store[hashedIndex].value = value;
       }
@@ -146,26 +159,26 @@ class HashMap {
 const hashMap = new HashMap();
 hashMap.set('firstKey', 'firstValue');
 hashMap.set('secondKey', 'secondValue');
-hashMap.set("game2", "Monopoly");
-hashMap.set("car2", "Ford");
-hashMap.set("constellation2", "Ursa Major");
-hashMap.set("school2", "Harvard");
-hashMap.set("country2", "Australia");
-hashMap.set("continent2", "Antarctica");
-hashMap.set("job3", "Doctor");
-hashMap.set("music3", "Hip Hop");
-hashMap.set("drink4", "Coca Cola");
-hashMap.set("animal3", "Kangaroo");
-hashMap.set("book3", "1984");
-hashMap.set("city4", "Tokyo");
-hashMap.set("food3", "Pasta");
-hashMap.set("emotion3", "Excited");
-hashMap.set("element3", "Platinum");
-hashMap.set("team3", "Red Sox");
-hashMap.set("movie3", "The Godfather");
-hashMap.set("subject4", "Chemistry");
-hashMap.set("color3", "Purple");
-hashMap.set("language3", "Java");
+hashMap.set('game2', 'Monopoly');
+hashMap.set('car2', 'Ford');
+hashMap.set('constellation2', 'Ursa Major');
+hashMap.set('school2', 'Harvard');
+hashMap.set('country2', 'Australia');
+hashMap.set('continent2', 'Antarctica');
+hashMap.set('job3', 'Doctor');
+hashMap.set('music3', 'Hip Hop');
+hashMap.set('drink4', 'Coca Cola');
+hashMap.set('animal3', 'Kangaroo');
+hashMap.set('book3', '1984');
+hashMap.set('city4', 'Tokyo');
+hashMap.set('food3', 'Pasta');
+hashMap.set('emotion3', 'Excited');
+hashMap.set('element3', 'Platinum');
+hashMap.set('team3', 'Red Sox');
+hashMap.set('movie3', 'The Godfather');
+hashMap.set('subject4', 'Chemistry');
+hashMap.set('color3', 'Purple');
+hashMap.set('language3', 'Java');
 // console.log(hashMap.entries());
 // console.log(hashMap.values());
 console.log(hashMap.keys());
