@@ -6,15 +6,7 @@ class HashMap {
 
   constructor(size = 16) {
     this.#bucketSize = size;
-    this.#fillStore();
-  }
-
-  #fillStore() {
-    this.#store = [];
-
-    for (let i = 0; i < this.#bucketSize; i += 1) {
-      this.#store.push(null);
-    }
+    this.#store = Array(this.#bucketSize).fill(null);
   }
 
   #hash(key) {
@@ -32,7 +24,8 @@ class HashMap {
     const existingNodesArr = this.entries();
     this.#store = [];
     this.#bucketSize = this.#bucketSize * 2;
-    this.#fillStore();
+    // this.#fillStore();
+    this.#store = Array(this.#bucketSize).fill(null);
 
     for (let node of existingNodesArr) {
       const [key, value] = node;
@@ -103,7 +96,8 @@ class HashMap {
   }
 
   clear() {
-    this.#fillStore();
+    // this.#fillStore();
+    this.#store = Array(this.#bucketSize).fill(null);
   }
 
   keys() {
