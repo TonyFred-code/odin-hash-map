@@ -31,6 +31,14 @@ class HashNode {
     return this.#node.keys;
   }
 
+  get values() {
+    return this.#node.values;
+  }
+
+  get entries() {
+    return this.#node.entries;
+  }
+
   prettyPrint() {
     return this.#node.toString();
   }
@@ -183,9 +191,10 @@ class HashMap {
 
     for (let element of this.#store) {
       if (element !== null) {
-        const { value } = element;
-
-        output.push(value);
+        const valuesArr = element.values;
+        if (valuesArr.length !== 0) {
+          output.push(...valuesArr);
+        }
       }
     }
 
@@ -193,13 +202,14 @@ class HashMap {
   }
 
   entries() {
-    let output = [];
+    const output = [];
 
     for (let element of this.#store) {
       if (element !== null) {
-        const { key, value } = element;
-
-        output.push([key, value]);
+        const entriesArr = element.entries;
+        if (entriesArr.length !== 0) {
+          output.push(...entriesArr);
+        }
       }
     }
 
@@ -231,6 +241,9 @@ hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
 console.log(hashMap.keys());
+console.log(hashMap.values());
+console.log(hashMap.entries());
+
 console.log(hashMap.length);
 console.log(hashMap.get('color3'))
 console.log(hashMap.has('firstKey3'))
