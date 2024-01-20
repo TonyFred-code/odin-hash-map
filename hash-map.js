@@ -1,25 +1,30 @@
 const linkedList = require('./linked-list');
 
 class HashNode {
+  #node;
 
   constructor() {
-    this.node = new linkedList();
+    this.#node = new linkedList();
   }
 
   prepend(key, value) {
-    this.node.prepend(key, value);
+    this.#node.prepend(key, value);
   }
 
   isEmpty() {
-    return this.node.isEmpty();
+    return this.#node.isEmpty();
   }
 
   hasKey(key) {
-    return this.node.hasKey(key);
+    return this.#node.hasKey(key);
+  }
+
+  findValue(key) {
+    return this.#node.findValue(key)
   }
 
   prettyPrint() {
-    return this.node.toString();
+    return this.#node.toString();
   }
 }
 
@@ -97,7 +102,6 @@ class HashMap {
       console.log('bucket need to grow');
     }
 
-
     if (this.#store[hashedIndex].hasKey(key)) {
       console.log('key present'); // update with value;
     } else {
@@ -106,14 +110,14 @@ class HashMap {
     }
 
     console.log(this.#entriesCount);
-    console.log(this.#store[hashedIndex].prettyPrint())
+    console.log(this.#store[hashedIndex].prettyPrint());
   }
 
   get(key) {
     const hashedIndex = this.#hash(key);
 
     if (this.#store[hashedIndex] !== null) {
-      const { value } = this.#store[hashedIndex];
+      const value = this.#store[hashedIndex].findValue(key);
       return value;
     } else {
       return null;
@@ -213,3 +217,4 @@ hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
 // console.log(hashMap.keys());
 // console.log(hashMap.length);
+console.log(hashMap.get('color3'))
