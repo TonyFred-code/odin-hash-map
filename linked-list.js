@@ -141,6 +141,21 @@ module.exports = class LinkedList {
     return null;
   }
 
+  updateValue(key, value) {
+    if (this.isEmpty()) return null;
+
+    let node = this.#head;
+
+    while (node !== null) {
+      if (node.key === key) {
+        node.value = value;
+        break;
+      }
+
+      node = node.nextNode;
+    }
+  }
+
   #findIndexOfKey(key) {
     if (this.isEmpty()) return null;
 
@@ -163,11 +178,10 @@ module.exports = class LinkedList {
     const keyIndex = this.#findIndexOfKey(key);
 
     if (keyIndex === null) {
-        return false;
+      return false;
     } else {
-        return this.removeAt(keyIndex);
+      return this.removeAt(keyIndex);
     }
-
   }
 
   get keys() {
@@ -175,9 +189,9 @@ module.exports = class LinkedList {
 
     let node = this.#head;
 
-    while(node !== null) {
-        keysArr.push(node.key);
-        node = node.nextNode;
+    while (node !== null) {
+      keysArr.push(node.key);
+      node = node.nextNode;
     }
 
     return keysArr;
@@ -188,9 +202,9 @@ module.exports = class LinkedList {
 
     let node = this.#head;
 
-    while(node !== null) {
-        valuesArr.push(node.value);
-        node = node.nextNode;
+    while (node !== null) {
+      valuesArr.push(node.value);
+      node = node.nextNode;
     }
 
     return valuesArr;
@@ -201,14 +215,13 @@ module.exports = class LinkedList {
 
     let node = this.#head;
 
-    while(node !== null) {
-        entriesArr.push([node.key, node.value]);
-        node = node.nextNode;
+    while (node !== null) {
+      entriesArr.push([node.key, node.value]);
+      node = node.nextNode;
     }
 
     return entriesArr;
   }
-
 
   toString() {
     let node = this.#head;
@@ -259,7 +272,6 @@ module.exports = class LinkedList {
       let prevNode = this.at(index - 1);
 
       if (occupyingNode !== null && prevNode !== null) {
-
         prevNode.nextNode = occupyingNode.nextNode;
       }
     }
