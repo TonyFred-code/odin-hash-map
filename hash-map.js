@@ -42,10 +42,6 @@ class HashNode {
   get entries() {
     return this.#node.entries;
   }
-
-  prettyPrint() {
-    return this.#node.toString();
-  }
 }
 
 class HashMap {
@@ -128,9 +124,6 @@ class HashMap {
       this.#store[hashedIndex].prepend(key, value);
       this.#entriesCount += 1;
     }
-
-    console.log(this.#entriesCount);
-    console.log(this.#store[hashedIndex].prettyPrint());
   }
 
   get(key) {
@@ -243,7 +236,7 @@ hashMap.set('movie3', 'The Godfather'); // 19
 hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
-hashMap.set('firstKey', 'updatedFirstKey')
+hashMap.set('firstKey', 'updatedFirstKey');
 console.log(hashMap.keys());
 console.log(hashMap.values());
 console.log(hashMap.entries());
