@@ -111,7 +111,23 @@ module.exports = class LinkedList {
     return false;
   }
 
-  find(value) {
+  hasKey(key) {
+    if (this.isEmpty()) return false;
+
+    let currentHead = this.#head;
+
+    if (currentHead.key === key) return true;
+
+    while (currentHead.nextNode !== null) {
+      let next = currentHead.nextNode;
+      if (next.key === key) return true;
+      currentHead = next;
+    }
+
+    return false;
+  }
+
+  findValue(value) {
     if (this.isEmpty()) return null;
 
     let node = this.#head;
@@ -127,12 +143,13 @@ module.exports = class LinkedList {
     return null;
   }
 
+
   toString() {
     let node = this.#head;
     let output = ``;
 
     while (node !== null) {
-      output += `(${node.value}) -> `;
+      output += `[Key: ${node.key} - Value: ${node.value}] -> `;
       node = node.nextNode;
     }
 
