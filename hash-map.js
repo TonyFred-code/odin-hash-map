@@ -6,29 +6,20 @@ class HashNode {
     this.node = new linkedList();
   }
 
-  append(value) {
-    this.node.append(value);
-  }
-
-  prepend(value) {
-    this.node.prepend(value);
+  prepend(key, value) {
+    this.node.prepend(key, value);
   }
 
   isEmpty() {
     return this.node.isEmpty();
   }
 
+  hasKey(key) {
+    return this.node.hasKey(key);
+  }
+
   prettyPrint() {
-    let node = this.node.head;
-    let output = ``;
-
-    while (node !== null) {
-      console.log(node.value)
-      output += `(${node.value}) -> `;
-      node = node.nextNode;
-    }
-
-    return (output += 'null');
+    return this.node.toString();
   }
 }
 
@@ -40,7 +31,6 @@ class HashMap {
 
   constructor(size = 16) {
     this.#bucketSize = this.#getNextPrime(size);
-    // this.#store = Array(this.#bucketSize).fill(new HashNode());
     this.#fillStore();
   }
 
@@ -91,8 +81,6 @@ class HashMap {
     this.#store = [];
     this.#bucketSize = this.#getNextPrime(this.#bucketSize * 2);
     this.#fillStore();
-    console.log(this.#bucketSize);
-    // this.#store = Array(this.#bucketSize).fill(new HashNode);
     this.#entriesCount = 0;
 
     for (let node of existingNodesArr) {
@@ -109,21 +97,15 @@ class HashMap {
       console.log('bucket need to grow');
     }
 
-    this.#store[hashedIndex].prepend({ key, value });
 
-
-    // if (this.#store[hashedIndex].isEmpty()) {
-    //   this.#entriesCount += 1;
-    //   console.log(this.#store[hashedIndex].prettyPrint());
-    // } else {
-      // if (this.#store[hashedIndex].key === key) {
-      //   this.#store[hashedIndex].value = value;
-      // }
-    // }
+    if (this.#store[hashedIndex].hasKey(key)) {
+      console.log('key present'); // update with value;
+    } else {
+      this.#store[hashedIndex].prepend(key, value);
+      this.#entriesCount += 1;
+    }
 
     console.log(this.#entriesCount);
-    console.log(key, value);
-    console.log(hashedIndex);
     console.log(this.#store[hashedIndex].prettyPrint())
   }
 
