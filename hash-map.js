@@ -1,3 +1,37 @@
+const linkedList = require('./linked-list');
+
+class HashNode {
+
+  constructor() {
+    this.node = new linkedList();
+  }
+
+  append(value) {
+    this.node.append(value);
+  }
+
+  prepend(value) {
+    this.node.prepend(value);
+  }
+
+  isEmpty() {
+    return this.node.isEmpty();
+  }
+
+  prettyPrint() {
+    let node = this.node.head;
+    let output = ``;
+
+    while (node !== null) {
+      console.log(node.value)
+      output += `(${node.value}) -> `;
+      node = node.nextNode;
+    }
+
+    return (output += 'null');
+  }
+}
+
 class HashMap {
   #bucketSize;
   #entriesCount = 0;
@@ -6,7 +40,16 @@ class HashMap {
 
   constructor(size = 16) {
     this.#bucketSize = this.#getNextPrime(size);
-    this.#store = Array(this.#bucketSize).fill(null);
+    // this.#store = Array(this.#bucketSize).fill(new HashNode());
+    this.#fillStore();
+  }
+
+  #fillStore() {
+    this.#store = [];
+
+    for (let i = 0; i < this.#bucketSize; i += 1) {
+      this.#store.push(new HashNode());
+    }
   }
 
   #isPrime(num) {
@@ -47,9 +90,9 @@ class HashMap {
     const existingNodesArr = this.entries();
     this.#store = [];
     this.#bucketSize = this.#getNextPrime(this.#bucketSize * 2);
-    // this.#fillStore();
+    this.#fillStore();
     console.log(this.#bucketSize);
-    this.#store = Array(this.#bucketSize).fill(null);
+    // this.#store = Array(this.#bucketSize).fill(new HashNode);
     this.#entriesCount = 0;
 
     for (let node of existingNodesArr) {
@@ -62,25 +105,26 @@ class HashMap {
     const hashedIndex = this.#hash(key);
 
     if (this.#entriesCount / this.#bucketSize >= this.#loadFactor) {
-      this.#growBucket();
+      // this.#growBucket();
+      console.log('bucket need to grow');
     }
 
-    if (this.#store[hashedIndex] === null) {
-      this.#store[hashedIndex] = {
-        key,
-        value,
-      };
-      this.#entriesCount += 1;
-    } else {
-      if (this.#store[hashedIndex].key === key) {
-        this.#store[hashedIndex].value = value;
-      }
+    this.#store[hashedIndex].prepend({ key, value });
 
-    }
+
+    // if (this.#store[hashedIndex].isEmpty()) {
+    //   this.#entriesCount += 1;
+    //   console.log(this.#store[hashedIndex].prettyPrint());
+    // } else {
+      // if (this.#store[hashedIndex].key === key) {
+      //   this.#store[hashedIndex].value = value;
+      // }
+    // }
 
     console.log(this.#entriesCount);
-    console.log(this.#store);
     console.log(key, value);
+    console.log(hashedIndex);
+    console.log(this.#store[hashedIndex].prettyPrint())
   }
 
   get(key) {
@@ -163,7 +207,7 @@ class HashMap {
 }
 
 const hashMap = new HashMap();
-hashMap.set('firstKey', 'firstValue');  // 1
+hashMap.set('firstKey', 'firstValue'); // 1
 hashMap.set('secondKey', 'secondValue'); // 2
 hashMap.set('game2', 'Monopoly'); // 3
 hashMap.set('car2', 'Ford'); // 4
@@ -185,5 +229,5 @@ hashMap.set('movie3', 'The Godfather'); // 19
 hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
-console.log(hashMap.keys());
-console.log(hashMap.length);
+// console.log(hashMap.keys());
+// console.log(hashMap.length);
