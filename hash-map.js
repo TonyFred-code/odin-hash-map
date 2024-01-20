@@ -1,11 +1,11 @@
 class HashMap {
-  #bucketSize = 16;
+  #bucketSize;
   #entriesCount = 0;
   #store = [];
   #loadFactor = 0.75;
 
   constructor(size = 16) {
-    this.#bucketSize = size;
+    this.#bucketSize = this.#getNextPrime(size);
     this.#store = Array(this.#bucketSize).fill(null);
   }
 
@@ -13,13 +13,23 @@ class HashMap {
     if (num <= 1) return false;
     if (num <= 3) return true;
 
-    if (n % 2 === 0 || num % 3 === 0) return false;
+    if (num % 2 === 0 || num % 3 === 0) return false;
 
     for (let i = 5; i * i <= num; i = i + 6) {
-      if (n % i === 0 || n % (i + 2) === 0) return false;
+      if (num % i === 0 || num % (i + 2) === 0) return false;
     }
 
     return true;
+  }
+
+  #getNextPrime(current) {
+    let next = current + 1;
+
+    while (!this.#isPrime(next)) {
+      next += 1;
+    }
+
+    return next;
   }
 
   #hash(key) {
@@ -36,9 +46,11 @@ class HashMap {
   #growBucket() {
     const existingNodesArr = this.entries();
     this.#store = [];
-    this.#bucketSize = this.#bucketSize * 2;
+    this.#bucketSize = this.#getNextPrime(this.#bucketSize * 2);
     // this.#fillStore();
+    console.log(this.#bucketSize);
     this.#store = Array(this.#bucketSize).fill(null);
+    this.#entriesCount = 0;
 
     for (let node of existingNodesArr) {
       const [key, value] = node;
@@ -60,12 +72,15 @@ class HashMap {
       };
       this.#entriesCount += 1;
     } else {
-      console.log(this.#store[hashedIndex]);
-      console.log(key, value);
       if (this.#store[hashedIndex].key === key) {
         this.#store[hashedIndex].value = value;
       }
+
     }
+
+    console.log(this.#entriesCount);
+    console.log(this.#store);
+    console.log(key, value);
   }
 
   get(key) {
@@ -97,19 +112,10 @@ class HashMap {
   }
 
   get length() {
-    let keysCount = 0;
-
-    for (let element of this.#store) {
-      if (element !== null) {
-        keysCount += 1;
-      }
-    }
-
-    return keysCount;
+    return this.#entriesCount;
   }
 
   clear() {
-    // this.#fillStore();
     this.#store = Array(this.#bucketSize).fill(null);
   }
 
@@ -157,29 +163,27 @@ class HashMap {
 }
 
 const hashMap = new HashMap();
-hashMap.set('firstKey', 'firstValue');
-hashMap.set('secondKey', 'secondValue');
-hashMap.set('game2', 'Monopoly');
-hashMap.set('car2', 'Ford');
-hashMap.set('constellation2', 'Ursa Major');
-hashMap.set('school2', 'Harvard');
-hashMap.set('country2', 'Australia');
-hashMap.set('continent2', 'Antarctica');
-hashMap.set('job3', 'Doctor');
-hashMap.set('music3', 'Hip Hop');
-hashMap.set('drink4', 'Coca Cola');
-hashMap.set('animal3', 'Kangaroo');
-hashMap.set('book3', '1984');
-hashMap.set('city4', 'Tokyo');
-hashMap.set('food3', 'Pasta');
-hashMap.set('emotion3', 'Excited');
-hashMap.set('element3', 'Platinum');
-hashMap.set('team3', 'Red Sox');
-hashMap.set('movie3', 'The Godfather');
-hashMap.set('subject4', 'Chemistry');
-hashMap.set('color3', 'Purple');
-hashMap.set('language3', 'Java');
-// console.log(hashMap.entries());
-// console.log(hashMap.values());
+hashMap.set('firstKey', 'firstValue');  // 1
+hashMap.set('secondKey', 'secondValue'); // 2
+hashMap.set('game2', 'Monopoly'); // 3
+hashMap.set('car2', 'Ford'); // 4
+hashMap.set('constellation2', 'Ursa Major'); // 5
+hashMap.set('school2', 'Harvard'); // 6
+hashMap.set('country2', 'Australia'); // 7
+hashMap.set('continent2', 'Antarctica'); // 8
+hashMap.set('job3', 'Doctor'); // 9
+hashMap.set('music3', 'Hip Hop'); // 10
+hashMap.set('drink4', 'Coca Cola'); // 11
+hashMap.set('animal3', 'Kangaroo'); // 12
+hashMap.set('book3', '1984'); // 13
+hashMap.set('city4', 'Tokyo'); // 14
+hashMap.set('food3', 'Pasta'); // 15
+hashMap.set('emotion3', 'Excited'); // 16
+hashMap.set('element3', 'Platinum'); // 17
+hashMap.set('team3', 'Red Sox'); // 18
+hashMap.set('movie3', 'The Godfather'); // 19
+hashMap.set('subject4', 'Chemistry'); // 20
+hashMap.set('color3', 'Purple'); // 21
+hashMap.set('language3', 'Java'); // 22
 console.log(hashMap.keys());
 console.log(hashMap.length);
