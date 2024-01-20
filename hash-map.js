@@ -115,8 +115,7 @@ class HashMap {
     const hashedIndex = this.#hash(key);
 
     if (this.#entriesCount / this.#bucketSize >= this.#loadFactor) {
-      // this.#growBucket();
-      console.log('bucket need to grow');
+      this.#growBucket();
     }
 
     if (this.#store[hashedIndex].hasKey(key)) {
