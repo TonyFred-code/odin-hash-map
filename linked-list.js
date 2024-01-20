@@ -127,17 +127,15 @@ module.exports = class LinkedList {
     return false;
   }
 
-  findValue(value) {
+  findValue(key) {
     if (this.isEmpty()) return null;
 
     let node = this.#head;
-    let index = 0;
 
     while (node !== null) {
-      if (node.value === value) return index;
+      if (node.key === key) return node.value;
 
       node = node.nextNode;
-      index += 1;
     }
 
     return null;
