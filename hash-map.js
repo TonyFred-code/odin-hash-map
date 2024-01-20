@@ -23,6 +23,10 @@ class HashNode {
     return this.#node.findValue(key)
   }
 
+  removeNode(key) {
+    return this.#node.removeNode(key);
+  }
+
   prettyPrint() {
     return this.#node.toString();
   }
@@ -133,9 +137,14 @@ class HashMap {
   remove(key) {
     const hashedIndex = this.#hash(key);
 
-    if (this.#store[hashedIndex] !== null) {
-      this.#store[hashedIndex] = null;
-      return true;
+    if (!this.#store[hashedIndex].isEmpty()) {
+      const removed = this.#store[hashedIndex].removeNode(key);
+
+      if (removed) {
+        this.#entriesCount -= 1;
+      }
+
+      return removed;
     }
 
     return false;
@@ -216,7 +225,10 @@ hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
 // console.log(hashMap.keys());
-// console.log(hashMap.length);
+console.log(hashMap.length);
 console.log(hashMap.get('color3'))
 console.log(hashMap.has('firstKey3'))
 console.log(hashMap.has('firstKey'))
+console.log(hashMap.remove('color3'))
+console.log(hashMap.remove('color3'));
+console.log(hashMap.length);
