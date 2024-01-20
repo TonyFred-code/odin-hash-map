@@ -19,8 +19,12 @@ class HashNode {
     return this.#node.hasKey(key);
   }
 
+  updateValue(key, value) {
+    this.#node.updateValue(key, value);
+  }
+
   findValue(key) {
-    return this.#node.findValue(key)
+    return this.#node.findValue(key);
   }
 
   removeNode(key) {
@@ -119,7 +123,7 @@ class HashMap {
     }
 
     if (this.#store[hashedIndex].hasKey(key)) {
-      console.log('key present'); // update with value;
+      this.#store[hashedIndex].updateValue(key, value);
     } else {
       this.#store[hashedIndex].prepend(key, value);
       this.#entriesCount += 1;
@@ -239,15 +243,16 @@ hashMap.set('movie3', 'The Godfather'); // 19
 hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
+hashMap.set('firstKey', 'updatedFirstKey')
 console.log(hashMap.keys());
 console.log(hashMap.values());
 console.log(hashMap.entries());
 
 console.log(hashMap.length);
-console.log(hashMap.get('color3'))
-console.log(hashMap.has('firstKey3'))
-console.log(hashMap.has('firstKey'))
-console.log(hashMap.remove('color3'))
+console.log(hashMap.get('color3'));
+console.log(hashMap.has('firstKey3'));
+console.log(hashMap.has('firstKey'));
+console.log(hashMap.remove('color3'));
 console.log(hashMap.remove('color3'));
 console.log(hashMap.length);
 hashMap.clear();
