@@ -141,6 +141,48 @@ module.exports = class LinkedList {
     return null;
   }
 
+  #findIndexOfKey(key) {
+    if (this.isEmpty()) return null;
+
+    let node = this.#head;
+    let index = 0;
+
+    while (node !== null) {
+      if (node.key === key) return index;
+
+      node = node.nextNode;
+      index += 1;
+    }
+
+    return null;
+  }
+
+  removeNode(key) {
+    if (this.isEmpty()) return false;
+
+    const keyIndex = this.#findIndexOfKey(key);
+
+    if (keyIndex === null) {
+        return false;
+    } else {
+        return this.removeAt(keyIndex);
+    }
+
+  }
+
+  get keys() {
+    let keysArr = [];
+
+    let node = this.#head;
+
+    while(node !== null) {
+        keysArr.push(node.key);
+        node = node.nextNode;
+    }
+
+    return keysArr;
+  }
+
 
   toString() {
     let node = this.#head;
@@ -176,17 +218,14 @@ module.exports = class LinkedList {
   }
 
   removeAt(index) {
-    if (index < 0 || index >= this.#size) return null;
-
-    let removedValue = null;
+    if (index < 0 || index >= this.#size) return false;
 
     if (index === 0) {
       if (this.#size === 1) {
-        removedValue = this.#head.value;
         this.#head = null;
       } else {
-        removedValue = this.#head.value;
         this.#head.value = this.#head.nextNode.value;
+        this.#head.key = this.#head.nextNode.key;
         this.#head.nextNode = this.#head.nextNode.nextNode;
       }
     } else {
@@ -194,12 +233,12 @@ module.exports = class LinkedList {
       let prevNode = this.at(index - 1);
 
       if (occupyingNode !== null && prevNode !== null) {
-        removedValue = occupyingNode.value;
+
         prevNode.nextNode = occupyingNode.nextNode;
       }
     }
 
     this.#size -= 1;
-    return removedValue;
+    return true;
   }
 };
