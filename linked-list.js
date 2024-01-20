@@ -4,9 +4,9 @@ module.exports = class LinkedList {
   #size = 0;
   #head = null;
 
-  append(value) {
+  append(key, value) {
     if (this.#head === null) {
-      this.#head = new Node(value);
+      this.#head = new Node(key, value);
     } else {
       let tail = this.#head;
 
@@ -14,18 +14,18 @@ module.exports = class LinkedList {
         tail = tail.nextNode;
       }
 
-      tail.nextNode = new Node(value);
+      tail.nextNode = new Node(key, value);
     }
 
     this.#size += 1;
   }
 
-  prepend(value) {
+  prepend(key, value) {
     if (this.#head === null) {
-      this.#head = new Node(value);
+      this.#head = new Node(key, value);
     } else {
       const temp = this.#head;
-      this.#head = new Node(value);
+      this.#head = new Node(key, value);
       this.#head.nextNode = temp;
     }
 
