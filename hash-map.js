@@ -27,6 +27,10 @@ class HashNode {
     return this.#node.removeNode(key);
   }
 
+  get keys() {
+    return this.#node.keys;
+  }
+
   prettyPrint() {
     return this.#node.toString();
   }
@@ -45,6 +49,7 @@ class HashMap {
 
   #fillStore() {
     this.#store = [];
+    this.#entriesCount = 0;
 
     for (let i = 0; i < this.#bucketSize; i += 1) {
       this.#store.push(new HashNode());
@@ -155,7 +160,7 @@ class HashMap {
   }
 
   clear() {
-    this.#store = Array(this.#bucketSize).fill(null);
+    this.#fillStore();
   }
 
   keys() {
@@ -163,9 +168,10 @@ class HashMap {
 
     for (let element of this.#store) {
       if (element !== null) {
-        const { key } = element;
-
-        output.push(key);
+        const keysArr = element.keys;
+        if (keysArr.length !== 0) {
+          output.push(...keysArr);
+        }
       }
     }
 
@@ -224,11 +230,13 @@ hashMap.set('movie3', 'The Godfather'); // 19
 hashMap.set('subject4', 'Chemistry'); // 20
 hashMap.set('color3', 'Purple'); // 21
 hashMap.set('language3', 'Java'); // 22
-// console.log(hashMap.keys());
+console.log(hashMap.keys());
 console.log(hashMap.length);
 console.log(hashMap.get('color3'))
 console.log(hashMap.has('firstKey3'))
 console.log(hashMap.has('firstKey'))
 console.log(hashMap.remove('color3'))
 console.log(hashMap.remove('color3'));
+console.log(hashMap.length);
+hashMap.clear();
 console.log(hashMap.length);
