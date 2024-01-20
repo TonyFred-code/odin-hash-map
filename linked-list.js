@@ -183,6 +183,32 @@ module.exports = class LinkedList {
     return keysArr;
   }
 
+  get values() {
+    let valuesArr = [];
+
+    let node = this.#head;
+
+    while(node !== null) {
+        valuesArr.push(node.value);
+        node = node.nextNode;
+    }
+
+    return valuesArr;
+  }
+
+  get entries() {
+    let entriesArr = [];
+
+    let node = this.#head;
+
+    while(node !== null) {
+        entriesArr.push([node.key, node.value]);
+        node = node.nextNode;
+    }
+
+    return entriesArr;
+  }
+
 
   toString() {
     let node = this.#head;
