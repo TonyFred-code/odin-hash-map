@@ -127,7 +127,7 @@ class HashMap {
   has(key) {
     const hashedIndex = this.#hash(key);
 
-    return this.#store[hashedIndex] !== null;
+    return this.#store[hashedIndex].hasKey(key);
   }
 
   remove(key) {
@@ -218,3 +218,5 @@ hashMap.set('language3', 'Java'); // 22
 // console.log(hashMap.keys());
 // console.log(hashMap.length);
 console.log(hashMap.get('color3'))
+console.log(hashMap.has('firstKey3'))
+console.log(hashMap.has('firstKey'))
